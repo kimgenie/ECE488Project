@@ -8,6 +8,8 @@
 %This is a READ-ONLY value %'torques' are the outputs of your controller. 
 %'q_desired' is the desired jointvalues, i.e. [q1_desired q2_desired ]'.
 
+% Sup brahs
+
 %You SET THIS 
 q_desired = qRef(:,qCount);
         
