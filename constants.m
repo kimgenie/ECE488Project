@@ -1,17 +1,17 @@
 %put constant values in this file%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%You NEED these constants%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-c1=1;               %link 1 friction coeffecient
-c2=1;               %link 2 friction coeffecient
-l1=0.25;            %link 1 length
+c1 = 1.0;               %link 1 friction coeffecient
+c2 = 1.0;               %link 2 friction coeffecient
+l1 = 0.5;               %link 1 length
 % l2=1;               %link 2 length
 
-dens1 = 2.5; %kg/m
+dens1 = 0.85; %kg/m
 dens2 = 0.85; %kg/m
 
-m1=dens1*l1;        %link 1 mass
-m2=0.75 - m1;       %link 2 mass
+m1 = dens1*l1;        %link 1 mass
+m2 = 0.75 - m1;       %link 2 mass
 l2 = m2/dens2;
-g=3.7;              %acceleration due to gravity m/s^2 on mars
+g = 3.7;              %acceleration due to gravity m/s^2 on mars
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Declare all your variables here, prefix with my_ 
@@ -45,14 +45,14 @@ qRef = [q1(1),q2(1),q3(1),q4(1),q5(1),q6(1),q7(1);
 
 tauOP = [Tau1,Tau2,Tau3,Tau4,Tau5,Tau6,Tau7];
 
-ctrlPoles = [-8 -8.01 -3 + 1i -3 - 1i];
-K1 = place(A1,B1,ctrlPoles);
-K2 = place(A2,B2,ctrlPoles);
-K3 = place(A3,B3,ctrlPoles);
-K4 = place(A4,B4,ctrlPoles);
-K5 = place(A5,B5,ctrlPoles);
-K6 = place(A6,B6,ctrlPoles);
-K7 = place(A7,B7,ctrlPoles);
+ctrlPoles = [-5, -5.01, -2 + 1i, -2 - 1i]; estPoles = [-200, -210, -220, -230];
+K1 = place(A1,B1,ctrlPoles); F1 = place(A1',C1', estPoles)';
+K2 = place(A2,B2,ctrlPoles); F2 = place(A2',C2', estPoles)';
+K3 = place(A3,B3,ctrlPoles); F3 = place(A3',C3', estPoles)';
+K4 = place(A4,B4,ctrlPoles); F4 = place(A4',C4', estPoles)';
+K5 = place(A5,B5,ctrlPoles); F5 = place(A5',C5', estPoles)';
+K6 = place(A6,B6,ctrlPoles); F6 = place(A7',C6', estPoles)';
+K7 = place(A7,B7,ctrlPoles); F7 = place(A7',C7', estPoles)';
 
 qRef = [q1(1),q2(1),q3(1),q4(1),q5(1),q6(1),q7(1);
         zeros(1,7);
@@ -61,19 +61,16 @@ qRef = [q1(1),q2(1),q3(1),q4(1),q5(1),q6(1),q7(1);
 
 x_0 = qRef(:,1);     %x_0=[q1_0,q1dot_0,q2_0,q2dot_0] initial conditions for the robot
 tau_0 = Tau1;       %initial torque
+tau = tau_0;
 
 % x_0 = [qC(1),0,qC(2),0]';     %x_0=[q1_0,q1dot_0,q2_0,q2dot_0] initial conditions for the robot
 % tau_0 = Ctau;       %initial torque
 
 %Feel Free to add to or remove these constants%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 my_time=0;
-my_angle_vector=[0 0]';
-my_state_estimate_vector=[0 0 0 0]';
-
-my_some_variable_a=0;
-my_some_variable_b=0;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 qCount = 1;
+qHat = [q1(1), 0, q1(2), 0]';
 
 function qTarget = kinematics(target,l1, l2)
     syms ang1 ang2;
