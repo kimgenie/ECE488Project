@@ -35,7 +35,7 @@ while i < size(t,1)
     
     subplot(2,3,[1,4]);
     
-    plot(0,0,'MarkerSize',30,'Marker','.', 'Color', [c1 c1 c1]);
+    plot(0,0,'MarkerSize',30,'Marker','.');
     title('Weeee');
     a1 = (l1+l2)*1.02;
     axis equal;
@@ -53,7 +53,7 @@ while i < size(t,1)
     plot(x2(1:i), y2(1:i), 'MarkerSize', 10, 'Marker', '.', 'Color', 'red');
     
     line([0, x1(i)], [0 y1(i)], 'LineWidth',0.5*m1+0.1);
-    plot(x1(i),y1(i),'MarkerSize',30,'Marker','.', 'Color', [c2 c2 c2]);
+    plot(x1(i),y1(i),'MarkerSize',30,'Marker','.');
     
     line([x1(i), x2(i)], [y1(i), y2(i)], 'LineWidth',0.5*m2+0.1);
 

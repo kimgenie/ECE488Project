@@ -51,8 +51,8 @@ if(abs(q_desired - q) < [0.2; 0.2])
     my_time = my_time + 0.001;
     if(my_time >= 0.5) %check if you're there for at least 0.5s         
         my_time = 0;
-        if (qCount < 3)
-            qCount = qCount + 1;
+        if (qCount < 7)
+            qCount = qCount + 2;
         end
         q_desired = qRef(:,qCount);  %change desired position
     end
